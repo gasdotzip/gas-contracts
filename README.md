@@ -1,66 +1,70 @@
-## Foundry
+<p align="center">
+ <img width="100px" src="https://www.gas.zip/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FgasPump.e8ffd1df.png&w=128&q=75" align="center" />
+ <h3 align="center">Gas.zip <br>Gas Reloader</h3>
+ <p align="center">Instant bulk gas reloader supporting over 140+ chains.</p>
+</p>
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+### Overview
 
-Foundry consists of:
+The Gas.zip gas refuel bridge supports over 140+ destination chains and 7 source chains. The primary function from a users perspective will be depositing, where you send the Gas.zip deposit contract some amount of the native source chain asset and it will be divided up among your desired destination chains.  All software is licensed under MIT and is verified on-chain at the [respective addresses](https://dev.gas.zip/gas/chain-support/inbound). 
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+Additional documentation and implementations can be found at [https://dev.gas.zip](https://dev.gas.zip). 
 
-## Documentation
+### Depositing to Gas.zip
 
-https://book.getfoundry.sh/
+Each inbound source chain has a deposit contract deployed that can accept any amount of the chains native inbound currency (ETH, AVAX, BNB, MATIC) between $1.00 USD and $50.00 USD. Gas uses the CoinGecko API for real-time coin price calculations.
 
-## Usage
+**WARNING:** Do not send less than $1.00 USD or more than $50.00 USD **PER CHAIN** to the deposit() function. Please contact us in [Discord](https://discord.gg/gasdotzip) via a support ticket if you have accidentally done so.
 
-### Build
+To call the `deposit()` function, you must supply a list of destination chain IDs and a destionation address you desire to recieve the outbound funds. The destination address does not have to be the same address sending the inbound source transaction. The destination chain IDs are **not** the native chain IDs of each blockchain, they are internal chain IDs designated by Gas.zip. Please see [Chain Support](/gas/chain-support/outbound) for this list of chain IDs.
 
-```shell
-$ forge build
+### Mutiple Destination Chains
+
+To deposit to mutiple destination chains at once, you will need to add the destination chain IDs as `unit8`s into a single `unit256`. If you wanted to send to zkSync `51`, Polygon zkEVM `52`, Zora `56` and Gnosis `16`, you would convert it in the following manner:
+
+```tsx [typescript]
+const chainsBN = [51, 52, 56, 16].reduce((p, c) => (p << BigInt(8)) + BigInt(c), BigInt(0))
+
+// The result of this function is `859060240n`,
+// which you would pass into the `chains` field in the `deposit()` function.
 ```
 
-### Test
+```python [python]
+gas_zip_short_chain_ids = [51, 52, 56, 16]
+chains_bn = sum(chain << (8 * i) for i, chain in enumerate(gas_zip_short_chain_ids))
 
-```shell
-$ forge test
+# The result of this function is 272118835,
+# which you would pass into the chains field in the deposit() function.
 ```
 
-### Format
+### Code Example for `deposit()`
 
-```shell
-$ forge fmt
+Below is an example implementation for calling the `deposit()` function.
+
+```ts twoslash [viem]
+// @filename: ./depositABI.ts
+export const depositABI = [
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: 'chains',
+        type: 'uint256',
+      },
+      {
+        internalType: 'address',
+        name: 'to',
+        type: 'address',
+      },
+    ],
+    name: 'deposit',
+    outputs: [],
+    stateMutability: 'payable',
+    type: 'function',
+  },
+]
 ```
 
-### Gas Snapshots
+### Questions & Contact 
 
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+Please feel free to ask questions in the Gas.zip [Discord channel](https://discord.gg/gasdotzip) or DM us on [Twitter](https://twitter.com/gasdotzip). 
