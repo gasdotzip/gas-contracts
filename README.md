@@ -1,6 +1,6 @@
 <p align="center">
  <img width="100px" src="https://www.gas.zip/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FgasPump.e8ffd1df.png&w=128&q=75" align="center" />
- <h3 align="center">Gas.zip <br>Gas Reloader</h3>
+ <h3 align="center">Gas.zip Gas Reloader</h3>
  <p align="center">Instant bulk gas reloader supporting over 140+ chains.</p>
 </p>
 
