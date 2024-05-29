@@ -1,12 +1,12 @@
 <p align="center">
- <img width="100px" src="https://www.gas.zip/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FgasPump.e8ffd1df.png&w=128&q=75" align="center" />
+ <img width="100px" src="https://www.gas.zip/gasLogo400x400.png" align="center" />
  <h3 align="center">Gas.zip Gas Reloader</h3>
- <p align="center">Instant bulk gas reloader supporting over 140+ chains.</p>
+ <p align="center">Instant bulk gas reloader supporting over 175+ chains.</p>
 </p>
 
 ### Overview
 
-The Gas.zip gas refuel bridge supports over 140+ destination chains and 7 source chains. The primary function from a users perspective will be depositing, where you send the Gas.zip deposit contract some amount of the native source chain asset and it will be divided up among your desired destination chains.  All software is licensed under MIT and is verified on-chain at the [respective addresses](https://dev.gas.zip/gas/chain-support/inbound). 
+The Gas.zip gas refuel bridge supports over 175+ destination chains and 13 source chains. The primary function from a users perspective will be depositing, where you send the Gas.zip deposit contract some amount of the native source chain asset and it will be divided up among your desired destination chains.  All software is licensed under MIT and is verified on-chain at the [respective addresses](https://dev.gas.zip/gas/chain-support/inbound). 
 
 Additional documentation and implementations can be found at [https://dev.gas.zip](https://dev.gas.zip). 
 
@@ -16,7 +16,7 @@ Each inbound source chain has a deposit contract deployed that can accept any am
 
 **WARNING:** Do not send less than $1.00 USD or more than $50.00 USD **PER CHAIN** to the deposit() function. Please contact us in [Discord](https://discord.gg/gasdotzip) via a support ticket if you have accidentally done so.
 
-To call the `deposit()` function, you must supply a list of destination chain IDs and a destionation address you desire to recieve the outbound funds. The destination address does not have to be the same address sending the inbound source transaction. The destination chain IDs are **not** the native chain IDs of each blockchain, they are internal chain IDs designated by Gas.zip. Please see [Chain Support](/gas/chain-support/outbound) for this list of chain IDs.
+To call the `deposit()` function, you must supply a list of destination chain IDs and a destionation address you desire to recieve the outbound funds. The destination address does not have to be the same address sending the inbound source transaction. The destination chain IDs are **not** the native chain IDs of each blockchain, they are internal chain IDs designated by Gas.zip. Please see [Chain Support](https://dev.gas.zip/gas/chain-support/outbound)  this list of chain IDs.
 
 ### Mutiple Destination Chains
 
