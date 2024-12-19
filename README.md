@@ -1,7 +1,7 @@
 <p align="center">
  <img width="100px" src="https://www.gas.zip/gasLogo400x400.png" align="center" />
  <h3 align="center">Gas.zip Gas Reloader</h3>
- <p align="center">Instant bulk gas reloader supporting over 200+ chains.</p>
+ <p align="center">Instant bulk gas reloader supporting over 300+ chains.</p>
 </p>
 
 ### Overview
